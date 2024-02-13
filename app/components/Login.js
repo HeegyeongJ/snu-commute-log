@@ -18,7 +18,7 @@ const Login = () => {
       })
       .then((res) => {
         commuteAxios.interceptors.request.use((config) => {
-          config.headers.Authorization = `${res.data.access_token}`;
+          config.headers.access_token = `${res.data.access_token}`;
           return config;
         });
         router.push("/analysis");
