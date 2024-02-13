@@ -9,7 +9,7 @@ const Button = ({ children, file, folder, setNonefile, setSearchedFiles }) => {
 
         commuteAxios
           .post("/file/upload", formData)
-          .then((res) => setSearchedFiles(res.data))
+          .then((res) => console.log(res))
           .catch(console.log("실패"));
       } else {
         setNonefile((prev) => !prev);
@@ -18,7 +18,7 @@ const Button = ({ children, file, folder, setNonefile, setSearchedFiles }) => {
       if (folder) {
         commuteAxios
           .get(`/file/search/${folder}`)
-          .then((res) => console.log(res))
+          .then((res) => setSearchedFiles(res.data))
           .catch((err) => console.error(err));
       }
     }
