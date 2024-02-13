@@ -10,6 +10,8 @@ const analysis = () => {
   const [nonefile, setNonefile] = useState(false);
   const [searchedFiles, setSearchedFiles] = useState([]);
 
+  console.log(searchedFiles);
+
   return (
     <Header>
       <div
