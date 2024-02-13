@@ -15,10 +15,12 @@ const Button = ({ children, file, folder, setNonefile }) => {
         setNonefile((prev) => !prev);
       }
     } else {
-      console.log(folder);
-      commuteAxios
-        .get(`/file/search/${folder}`)
-        .then((res) => console.log(res));
+      if (folder) {
+        commuteAxios
+          .get(`/file/search/${folder}`)
+          .then((res) => console.log(res))
+          .catch((err) => console.error(err));
+      }
     }
   };
   return (
