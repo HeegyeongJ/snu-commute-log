@@ -10,8 +10,6 @@ const analysis = () => {
   const [nonefile, setNonefile] = useState(false);
   const [searchedFiles, setSearchedFiles] = useState([]);
 
-  console.log(searchedFiles);
-
   return (
     <Header>
       <div
@@ -55,11 +53,15 @@ const analysis = () => {
                   SEARCH
                 </Button>
               </div>
-              <div className="w-full text-center">
+              <div className="w-full">
                 {searchedFiles ? (
-                  searchedFiles.map((item) => <li>{item.key}</li>)
+                  searchedFiles.map((item) => (
+                    <List folder={folder} item={item} className="my-px">
+                      {item.key}
+                    </List>
+                  ))
                 ) : (
-                  <p className="text-slate-300 italic text-lg">
+                  <p className="text-slate-300 italic text-lg text-center">
                     Search Your List!
                   </p>
                 )}
