@@ -8,6 +8,7 @@ const analysis = () => {
   const [file, setFile] = useState("");
   const [folder, setFolder] = useState("H2");
   const [nonefile, setNonefile] = useState(false);
+  const [searchedFiles, setSearchedFiles] = useState([]);
 
   return (
     <Header>
@@ -48,12 +49,18 @@ const analysis = () => {
                   <option value="H4">H4</option>
                   <option value="H5">H5</option>
                 </select>
-                <Button folder={folder}>SEARCH</Button>
+                <Button folder={folder} setSearchedFiles={setSearchedFiles}>
+                  SEARCH
+                </Button>
               </div>
               <div className="w-full text-center">
-                <p className="text-slate-300 italic text-lg">
-                  Search Your List!
-                </p>
+                {searchedFiles ? (
+                  searchedFiles.map((item) => <li>{item.key}</li>)
+                ) : (
+                  <p className="text-slate-300 italic text-lg">
+                    Search Your List!
+                  </p>
+                )}
               </div>
             </div>
           </div>

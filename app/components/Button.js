@@ -1,6 +1,6 @@
 import commuteAxios from "../api/axios";
 
-const Button = ({ children, file, folder, setNonefile }) => {
+const Button = ({ children, file, folder, setNonefile, setSearchedFiles }) => {
   const clickHandler = () => {
     if (children === "UPLOAD") {
       if (file) {
@@ -9,7 +9,7 @@ const Button = ({ children, file, folder, setNonefile }) => {
 
         commuteAxios
           .post("/file/upload", formData)
-          .then((res) => console.log(res))
+          .then((res) => setSearchedFiles(res.data))
           .catch(console.log("실패"));
       } else {
         setNonefile((prev) => !prev);
