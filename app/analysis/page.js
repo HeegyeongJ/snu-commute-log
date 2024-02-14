@@ -8,7 +8,7 @@ const analysis = () => {
   const [file, setFile] = useState("");
   const [folder, setFolder] = useState("H2");
   const [nonefile, setNonefile] = useState(false);
-  const [searchedFiles, setSearchedFiles] = useState([]);
+  const [searchedFiles, setSearchedFiles] = useState(null);
 
   return (
     <Header>
@@ -33,7 +33,7 @@ const analysis = () => {
           </form>
           {nonefile && <p>파일을 선택해주세요</p>}
         </div>
-        <div className="basis-3/5 shadow-lg rounded-md text-center relative p-6 bg-white">
+        <div className="basis-3/5 shadow-lg rounded-md text-center p-6 bg-white">
           <h1 className="font-medium text-3xl pb-2 border-b-2">
             File List & DownLoad
           </h1>

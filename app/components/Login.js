@@ -17,12 +17,14 @@ const Login = () => {
         password: pwd,
       })
       .then((res) => {
+        console.log(res.data);
         commuteAxios.interceptors.request.use((config) => {
           config.headers["access_token"] = `${res.data.access_token}`;
           return config;
         });
         router.push("/analysis");
-      });
+      })
+      .catch((res) => console.log(res.message));
   };
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

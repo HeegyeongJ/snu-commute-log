@@ -1,7 +1,7 @@
 import commuteAxios from "../api/axios";
 
 const List = ({ children, item, folder }) => {
-  const [hover, setHover] = useState();
+  const [hover, setHover] = useState(false);
 
   const hoverHandler = () => {
     setHover((prev) => !prev);
@@ -19,7 +19,6 @@ const List = ({ children, item, folder }) => {
         {children}{" "}
         {hover && <img src="/download.svg" onClick={downloadHandler} />}
       </li>
-      ;
     </ul>
   );
 };
