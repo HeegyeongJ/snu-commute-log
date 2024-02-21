@@ -61,7 +61,7 @@ const analysis = () => {
           </h1>
           <p className="pt-2 text-lg">파일 검색 후, 원하는 파일 다운로드</p>
           <div className="h-5/6">
-            <div className="text-left flex w-10/12 h-full items-center">
+            <div className="text-left flex w-10/12 h-full items-center justify-between">
               <div className="w-6/12 h-full flex items-center	">
                 <select
                   className="p-2 px-3 border mr-3 text-left"
