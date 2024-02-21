@@ -18,6 +18,7 @@ const Login = () => {
       })
       .then((res) => {
         console.log(res.data);
+        // localStorage.setItem("access_token", res.data.access_token);
         commuteAxios.interceptors.request.use((config) => {
           config.headers["access_token"] = `${res.data.access_token}`;
           return config;
