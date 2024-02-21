@@ -44,12 +44,7 @@ const analysis = () => {
                   setFile(e.target.files[0]);
                 }}
               ></input>
-              djqf파일을 선택해주세요
-              <Button
-                file={file}
-                setNonefile={setNonefile}
-                setUploadState={setUploadState}
-              >
+              <Button file={file} setUploadState={setUploadState}>
                 UPLOAD
               </Button>
             </div>
