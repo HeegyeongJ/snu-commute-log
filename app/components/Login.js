@@ -8,6 +8,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const [loginState, setLoginState] = useState("");
 
   const loginHandler = (e) => {
     e.preventDefault();
@@ -17,14 +18,14 @@ const Login = () => {
         password: pwd,
       })
       .then((res) => {
-        console.log(res.data);
         commuteAxios.interceptors.request.use((config) => {
           config.headers["access_token"] = `${res.data.access_token}`;
           return config;
         });
+        setLoginState("로그인 성공!");
         router.push("/analysis");
       })
-      .catch((res) => console.log(res.message));
+      .catch((err) => setLoginState("아이디 또는 패스워드가 틀렸습니다"));
   };
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -95,6 +96,7 @@ const Login = () => {
               Sign in
             </button>
           </div>
+          <div className="text-center">{loginState}</div>
         </form>
       </div>
     </div>

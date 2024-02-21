@@ -1,14 +1,31 @@
 "use client";
 import { useState } from "react";
 import Button from "../components/Button";
+import commuteAxios from "../api/axios";
 
 const { default: Header } = require("../components/Header");
 
 const analysis = () => {
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const [folder, setFolder] = useState("H2");
   const [nonefile, setNonefile] = useState(false);
   const [searchedFiles, setSearchedFiles] = useState(null);
+
+  const downloadHandler = async (file) => {
+    try {
+      const response = await commuteAxios.get(`/file/download/${file}`, {
+        responseType: "blob", // 설정된 responseType은 파일 다운로드를 위해 Blob 유형으로 설정됩니다.
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data])); // 파일 데이터를 Blob으로 변환하여 URL을 생성합니다.
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${file}`); // 다운로드될 파일의 이름과 확장자를 설정합니다.
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error fetching file data:", error);
+    }
+  };
 
   return (
     <Header>
@@ -19,19 +36,24 @@ const analysis = () => {
         <div className="basis-2/5 shadow-lg rounded-md text-center p-6 bg-white ">
           <h1 className="font-medium text-3xl pb-2 border-b-2 ">File Upload</h1>
           <p className="pt-2 text-lg">파일 선택 후, 업로드 버튼 클릭</p>
-          <form
-            className="flex items-center justify-center h-5/6"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input
-              type="file"
-              onChange={(e) => setFile(e.target.value)}
-            ></input>
-            <Button file={file} setNonefile={setNonefile}>
-              UPLOAD
-            </Button>
+          <form className="h-5/6 relative" onSubmit={(e) => e.preventDefault()}>
+            <div className="flex items-center justify-center h-full">
+              <input
+                type="file"
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                }}
+              ></input>
+              <Button file={file} setNonefile={setNonefile}>
+                UPLOAD
+              </Button>
+            </div>
+            {nonefile && (
+              <p className="absolute inset-x-0 bottom-16">
+                파일을 선택해주세요
+              </p>
+            )}
           </form>
-          {nonefile && <p>파일을 선택해주세요</p>}
         </div>
         <div className="basis-3/5 shadow-lg rounded-md text-center p-6 bg-white">
           <h1 className="font-medium text-3xl pb-2 border-b-2">
@@ -56,9 +78,17 @@ const analysis = () => {
               <div className="w-full">
                 {searchedFiles ? (
                   searchedFiles.map((item) => (
-                    <List folder={folder} item={item} className="my-px">
-                      {item.key}
-                    </List>
+                    <ul>
+                      <li
+                        className="flex justify-between list-disc text-lg my-2"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {item.key}{" "}
+                        <button onClick={() => downloadHandler(item.key)}>
+                          <img className="w-7" src="/download.svg" />
+                        </button>
+                      </li>
+                    </ul>
                   ))
                 ) : (
                   <p className="text-slate-300 italic text-lg text-center">
