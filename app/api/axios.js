@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 
 const commuteAxios = axios.create({
-  baseURL: "http://13.125.53.208:8080/api",
+  baseURL: "https://snu-commute-v3latest-yi6gkqhzma-du.a.run.app/api",
 });
 export default commuteAxios;
