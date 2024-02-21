@@ -8,8 +8,8 @@ const { default: Header } = require("../components/Header");
 const analysis = () => {
   const [file, setFile] = useState(null);
   const [folder, setFolder] = useState("H2");
-  const [nonefile, setNonefile] = useState(false);
   const [searchedFiles, setSearchedFiles] = useState(null);
+  const [uploadState, setUploadState] = useState(null);
 
   const downloadHandler = async (file) => {
     try {
@@ -44,14 +44,23 @@ const analysis = () => {
                   setFile(e.target.files[0]);
                 }}
               ></input>
-              <Button file={file} setNonefile={setNonefile}>
+              djqf파일을 선택해주세요
+              <Button
+                file={file}
+                setNonefile={setNonefile}
+                setUploadState={setUploadState}
+              >
                 UPLOAD
               </Button>
             </div>
-            {nonefile && (
+            {!file ? (
               <p className="absolute inset-x-0 bottom-16">
                 파일을 선택해주세요
               </p>
+            ) : (
+              uploadState && (
+                <p className="absolute inset-x-0 bottom-16">업로드 완료!</p>
+              )
             )}
           </form>
         </div>
